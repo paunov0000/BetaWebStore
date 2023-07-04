@@ -56,6 +56,11 @@
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
 
+            builder.Entity<IndividualProduct>()
+                .HasOne(x => x.ProductImage)
+                .WithOne()
+                .HasForeignKey<IndividualProduct>(x => x.ProductImageId);
+
             // Set global query filter for not deleted entities only
             var deletableEntityTypes = entityTypes
                 .Where(et => et.ClrType != null && typeof(IDeletableEntity).IsAssignableFrom(et.ClrType));
