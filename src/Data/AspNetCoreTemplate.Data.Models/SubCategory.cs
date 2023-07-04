@@ -1,18 +1,21 @@
 ﻿namespace AspNetCoreTemplate.Data.Models
 {
+    using AspNetCoreTemplate.Data.Common.Models;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using static AspNetCoreTemplate.Data.Common.GlobalConstants.SubCategory;
 
-    public class SubCategory
+    public class SubCategory : BaseDeletableModel<int>
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
+        [MaxLength(NameMaxLength)]
         public string Name { get; set; }
 
-        [Required] 
-        public List<Category> Categories { get; set; } = new List<Category>(); 
+        [Required]
+        [ForeignKey(nameof(CategoryId))]
+        public Category Category { get; set; }
+
+        public int CategoryId { get; set; }
     }
 }

@@ -1,23 +1,26 @@
 ﻿namespace AspNetCoreTemplate.Data.Models
 {
+    using AspNetCoreTemplate.Data.Common.Models;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class IndividualProduct
+    using static AspNetCoreTemplate.Data.Common.GlobalConstants.IndividualProduct;
+
+    public class IndividualProduct : BaseDeletableModel<int>
     {
-        [Key]
-        public int Id { get; set; }
+        [Required]
+        [MaxLength(NameMaxLength)]
+        public string Name { get; set; }
 
         [Required]
-
-        public string Name { get; set; }
+        public bool IsOnSale { get; set; }
 
         public ProductImage ProductImage { get; set; }
 
         public int ProductImageId { get; set; }
 
         [Required]
-
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; }
 
         [ForeignKey(nameof(SubCategory))]
