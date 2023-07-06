@@ -3,6 +3,7 @@ using AspNetCoreTemplate.Data.Models;
 using AspNetCoreTemplate.Services.Mapping;
 using AspNetCoreTemplate.Web.ViewModels.Categories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,10 +60,41 @@ namespace AspNetCoreTemplate.Web.Controllers
             return this.RedirectToAction(nameof(this.Index));
         }
 
-        // [HttpGet]
-        // public IActionResult Edit(int id)
-        // {
-        //    var category = this._categoriesRepository.All();
-        // }
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var category = await this._categoriesRepository
+                .All()
+                .Where(x => x.Id == id)
+                .Select(x => new CategoryViewModel()
+                {
+                    CategoryImageURL = x.CategoryImageURL,
+                    Name = x.Name,
+                    Id = x.Id,
+                })
+                .FirstOrDefaultAsync();
+
+            return this.View(category);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(CategoryViewModel model, int id)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var category = await this._categoriesRepository.FindById(id);
+
+            if (category != null)
+            {
+                category.Name = model.Name;
+                category.CategoryImageURL = model.CategoryImageURL;
+            }
+
+            await this._categoriesRepository.SaveChangesAsync();
+            return this.RedirectToAction(nameof(this.Index));
+        }
     }
 }

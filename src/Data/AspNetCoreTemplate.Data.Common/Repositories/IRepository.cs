@@ -19,6 +19,6 @@
 
         Task<int> SaveChangesAsync();
 
-        TEntity FindById(int id);
+        Task<TEntity> FindById(int id);
     }
 }

@@ -48,9 +48,9 @@
             GC.SuppressFinalize(this);
         }
 
-        public TEntity FindById(int id)
+        public async Task<TEntity> FindById(int id)
         {
-            return this.DbSet.Find(id);
+            return await this.DbSet.FindAsync(id);
         }
 
         protected virtual void Dispose(bool disposing)
