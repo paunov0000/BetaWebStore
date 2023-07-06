@@ -13,6 +13,9 @@
         public string Name { get; set; }
 
         [Required]
+        public string SubCategoryImageURL { get; set; }
+
+        [Required]
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
 

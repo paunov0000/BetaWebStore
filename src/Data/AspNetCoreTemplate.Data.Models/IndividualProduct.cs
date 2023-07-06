@@ -15,9 +15,8 @@
         [Required]
         public bool IsOnSale { get; set; }
 
-        public ProductImage ProductImage { get; set; }
-
-        public int ProductImageId { get; set; }
+        [Required]
+        public string ProductImageURL { get; set; }
 
         [Required]
         [MaxLength(DescriptionMaxLength)]

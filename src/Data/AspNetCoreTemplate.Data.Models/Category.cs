@@ -14,6 +14,9 @@
         public string Name { get; set; }
 
         [Required]
+        public string CategoryImageURL { get; set; }
+
+        [Required]
         public List<SubCategory> SubCategories { get; set; } = new List<SubCategory>(); // TODO: do i have to instantiate this? wtf?? do it w/o
     }
 }

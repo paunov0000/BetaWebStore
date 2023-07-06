@@ -8,6 +8,8 @@ namespace AspNetCoreTemplate.Web.ViewModels.Categories
     {
         public int Id { get; set; }
 
+        public string CategoryImageURL { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }

@@ -26,6 +26,12 @@
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Category> Categories { get; set; }
+
+        public DbSet<IndividualProduct> IndividualProducts { get; set; }
+
+        public DbSet<SubCategory> SubCategories { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -55,11 +61,6 @@
             EntityIndexesConfiguration.Configure(builder);
 
             var entityTypes = builder.Model.GetEntityTypes().ToList();
-
-            builder.Entity<IndividualProduct>()
-                .HasOne(x => x.ProductImage)
-                .WithOne()
-                .HasForeignKey<IndividualProduct>(x => x.ProductImageId);
 
             // Set global query filter for not deleted entities only
             var deletableEntityTypes = entityTypes

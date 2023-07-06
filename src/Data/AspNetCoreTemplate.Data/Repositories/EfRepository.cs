@@ -48,6 +48,11 @@
             GC.SuppressFinalize(this);
         }
 
+        public TEntity FindById(int id)
+        {
+            return this.DbSet.Find(id);
+        }
+
         protected virtual void Dispose(bool disposing)
         {
             if (disposing)
